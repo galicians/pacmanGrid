@@ -32,7 +32,7 @@ pacmanServices.factory('Pacman', [ function() {
   var Pacman = function(){
   this.lifeCount = 3
   this.pointCount = 0
-  this.location = 466;
+  this.location;
   this.name = 'pacman'
 
 };
@@ -47,10 +47,42 @@ pacmanServices.factory('Pacman', [ function() {
     self.pointCount +=1;
   };
 
+
+
+  Pacman.prototype.move = function(direction,maze,corridor) {
+    var self = this
+    var newLocation = self.location
+    console.log('the curent location is', self.location)
+    // console.log('The current location of the pacman is', self.location)
+    // console.log('The cell 0 maze in pacman',self.maze.cells[0])
+    if (direction == 'Up') (newLocation = self.location - 30)
+    if(direction == 'Down') (newLocation = self.location + 30)
+    if(direction == 'Left') (newLocation = self.location - 1)
+    if(direction == 'Right') (newLocation = self.location + 1)
+
+      console.log('trying location:',newLocation)
+      console.log('maze.cells[newLocation].name', maze.cells[newLocation].name)
+      console.log((maze.cells[newLocation].name !== 'wall'))
+    if (maze.cells[newLocation].name !== 'wall') {
+        maze.place(corridor, self.location)
+        maze.place(self, newLocation)
+      }
+
+      console.log('test final is',self.location)
+
+
+
+
+
+  }
+
+
+
+
   Pacman.prototype.moveRight = function() {
     var self = this
     self._leaveCell(self.location);
-    if (self.maze.cells[self.location + 1].content instanceof Wall){
+    if (self.maze.cells[self.location + 1].name = 'Wall'){
       return self.location}
     else{
       self.location +=1;
@@ -60,8 +92,9 @@ pacmanServices.factory('Pacman', [ function() {
 
   Pacman.prototype.moveLeft = function() {
     var self = this
+
     self._leaveCell(self.location);
-     if (self.maze.cells[self.location - 1].content instanceof Wall){
+     if (self.maze.cells[self.location - 1].name = 'Wall'){
       return self.location}
     else{
       self.location -=1;
@@ -72,7 +105,7 @@ pacmanServices.factory('Pacman', [ function() {
   Pacman.prototype.moveUp = function() {
     var self = this
     self._leaveCell(self.location);
-     if (self.maze.cells[self.location - self.maze.width].content instanceof Wall){
+     if (self.maze.cells[self.location - self.maze.width].name = 'Wall'){
       return self.location}
     else{
       self.location -=self.maze.width;
@@ -83,7 +116,7 @@ pacmanServices.factory('Pacman', [ function() {
   Pacman.prototype.moveDown = function() {
     var self = this
     self._leaveCell(self.location);
-    if (self.maze.cells[self.location + self.maze.width].content instanceof Wall){
+    if (self.maze.cells[self.location + self.maze.width].name = 'Wall'){
       return self.location}
     else{
       self.location += self.maze.width;
@@ -93,7 +126,8 @@ pacmanServices.factory('Pacman', [ function() {
 
   Pacman.prototype._leaveCell = function(location) {
     var self = this
-    self.maze.cells[location].content =  Corridor;
+    console.log("_leaveCell method", self.maze.cells[location].name == 'dot')
+    self.maze.cells[location].name =  "dot";
   };
 
   Pacman.prototype._enterCell = function(location) {
@@ -243,12 +277,15 @@ pacmanServices.factory('Maze', [ function() {
   Maze.prototype.addPacman = function(pacman) {
     var self = this
     self.pacman = pacman;
-    self.pacman.maze = this;
+    // pacman.maze = self;
+
   };
 
   Maze.prototype.place = function(object, index) {
     var self = this
-    self.cells[index - 1].content = object;
+    self.cells[index]= object;
+    console.log
+    if (typeof object !== 'string') object.location = index
   };
 
   Maze.prototype.addGhost = function(ghost) {

@@ -7,26 +7,36 @@ var pacmanControllers = angular.module('pacmanControllers', []);
 pacmanControllers.controller('gameController', ['$scope','Cell' ,'Corridor','Pacman', 'Wall', 'Dot', 'Ghost', 'Maze', 'Layout', function($scope, Cell, Corridor, Pacman, Wall, Dot, Ghost, Maze, Layout) {
 
 
+
+setupGame()
+$scope.maze.addPacman($scope.pacman)
+$scope.pacman.location = 32
+$scope.maze.place($scope.pacman, 32)
+
+
+
+$scope.keypress = function(keyEvent) {
+      var direction = keyEvent.keyIdentifier
+      console.log(direction)
+      $scope.pacman.move(direction,$scope.maze,new Dot)
+}
+
+
+function setupGame() {
       var cell = new Cell
       var corridor = new Corridor
-      var pacman = new Pacman
+      $scope.pacman = new Pacman
       var wall = new Wall
       var dot = new Dot
       var ghost = new Ghost
       var maze = new Maze(30, 30)
-      var layout = Layout
       maze.generate(new Cell)
-      // maze.cells[0].content = 'hello'
-      // console.log(maze.cells[0].content)
-      // maze.populate(new Dot,new Wall)
-populateMaze()
-$scope.maze = maze
+      populateMaze(maze)
+      $scope.maze = maze
+}
 
 
-      // layout.forEach(function(position) { console.log(maze.cells[position].content) } )
-
-function populateMaze() {
-// maze.cells[0] = new Wall
+function populateMaze(maze) {
 maze.cells[0] = new Wall
 maze.cells[1] = new Wall
 maze.cells[2] = new Wall
@@ -933,7 +943,7 @@ maze.cells[868] = new Dot
 
 
 
-// console.log('hiiiiii')
+
 
 
 
@@ -941,37 +951,10 @@ maze.cells[868] = new Dot
  }]);
 
 
-  // function setupGame() {
-  //   var cell = new Cell
-  //   var board = new Grid
-  //   board.factory(Cell)
-  //   var pacman = new Pacman
-  //   board.placing(pacman, '1:1')
-  //   $scope.cell = cell
-  //   $scope.pacman = pacman
-  //   $scope.cellName = cell.name
-  //   $scope.boardSize = board.size
-  //   $scope.board = board
-  //   $scope.isResponded = false
-  // }
 
 
-  //    $scope.keypress = function(keyEvent) {
-  //      ($scope.isResponded == true) ? $scope.isResponded = false : $scope.isResponded = true
-  //       console.log('pacman initial pos',  $scope.pacman.currentCell)
-  //       $scope.board.removeContent(Cell,  $scope.pacman.currentCell)
-  //       $scope.pacman.move(keyEvent.keyIdentifier)
-  //       $scope.board.placing( $scope.pacman,  $scope.pacman.currentCell)
-  //       console.log('pacman final pos',  $scope.pacman.currentCell)
-  //   };
 
-      // $scope.board.$watch()
-      // function()
-      // // angular.copy( $scope.pacman.board )
-      // return
 
-//watch on table to update content
-//imgsrc to render the pacman in the the grid
 
 
 
