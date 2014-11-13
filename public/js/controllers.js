@@ -21,6 +21,10 @@ pacmanControllers.controller('gameController', ['$scope','Cell' ,'Corridor','Pac
       // maze.populate(new Dot,new Wall)
 populateMaze()
 $scope.maze = maze
+      $scope.maze.addPacman(pacman)
+      maze.cells[461] = pacman
+      $scope.maze.addGhost(ghost)
+      maze.cells[435] = ghost
 
 
       // layout.forEach(function(position) { console.log(maze.cells[position].content) } )
@@ -183,6 +187,7 @@ maze.cells[300] = new Wall
 maze.cells[302] = new Wall
 maze.cells[304] = new Wall
 maze.cells[306] = new Wall
+maze.cells[308] = new Wall
 maze.cells[310] = new Wall
 maze.cells[312] = new Wall
 maze.cells[313] = new Wall
@@ -627,7 +632,6 @@ maze.cells[301] = new Dot
 maze.cells[303] = new Dot
 maze.cells[305] = new Dot
 maze.cells[307] = new Dot
-maze.cells[308] = new Dot
 maze.cells[309] = new Dot
 maze.cells[311] = new Dot
 maze.cells[318] = new Dot
