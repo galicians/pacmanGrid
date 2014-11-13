@@ -32,7 +32,9 @@ pacmanServices.factory('Pacman', [ function() {
   var Pacman = function(){
   this.lifeCount = 3
   this.pointCount = 0
+
   this.location;
+
   this.name = 'pacman'
 
 };
