@@ -36,12 +36,14 @@
     <section id="board-section">
       <section id="player-score-container">
         <article id="player-score">
-          <h1 id="player-name">ENTER YOUR NAME</h1>
-          <input type="text" name="player-name" id="player-name-form">
-          <input type="submit" value="ok man" id="player-name-button">
+          <section id="player-name-input">
+            <input type="text" name="player-name" id="player-name-form" placeholder="ENTER YOUR NAME">
+            <input type="submit" value="ok man" id="player-name-button">
+          </section>
+          <h1 id="pacman-living">{{pacman.living}}</h1>
           <article id="current-score">
-            <p><span id="life-count">3</span> LIVES</p>
-            <p><span id="point-count">{{pacman.pointCount}}</span> POINTS</p>
+            <p id="life-line"><span id="life-count">{{pacman.lifeCount}}</span> LIVES</p>
+            <p id="point-line"><span id="point-count">{{pacman.pointCount}}</span> POINTS</p>
             </article>
           </article>
         </article>
@@ -61,10 +63,10 @@
             <article class="score-board-list" id="stars">
               <ul>
                 <li> <h2>Score</h2></li>
-                <li>★★★★★</li>
-                <li>★★★★★</li>
-                <li>★★★★★</li>
-                <li>★★★★★</li>
+                <li>9000</li>
+                <li>7500</li>
+                <li>5500</li>
+                <li>1300</li>
               </ul>
             </article>
         </article>
@@ -81,31 +83,6 @@
   <script src="/js/directives.js"></script>
   <script src="/js/jquery-2.1.1.min.js"></script>
   <script src="/js/interface.js"></script>
-
-  <script>
-
-    $(document).on('keyup', function(e){
-      var direction = e.keyCode
-      if(direction == '38') { $('.pacman').css('transform', 'rotate(270deg)') }
-      if(direction == '40') { $('.pacman').css('transform', 'rotate(90deg)') }
-      if(direction == '37') { $('.pacman').css('transform', 'rotate(180deg)') }
-      if(direction == '39') { $('.pacman').css('transform', 'rotate(0deg)') }
-    });
-
-    // function(keyEvent){
-    //   var direction = keyEvent.keyIdentifier
-    //   console.log('this is owrking')
-    // if(direction == 'Up') (newLocation = self.location - 30)
-    // if(direction == 'Down') (newLocation = self.location + 30)
-    // if(direction == 'Left') (newLocation = self.location - 1)
-    // if(direction == 'Right') ($(this).css('background', ('/images/pacman_up.gif') no-repeat center center))
-
-      // $(this).css('background', '/images/pacman_right.gif')
-      // $(this).css('background', '/images/pacman_left.gif')
-      // $(this).css('background', '/images/pacman_up.gif')
-      // $(this).css('background', '/images/pacman_down.gif')
-
-    </script>
 
 </body>
 

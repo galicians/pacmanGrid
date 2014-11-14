@@ -16,6 +16,9 @@ $scope.pacman.location = 32
 $scope.maze.place($scope.pacman, 32)
 $scope.pacman.pointCount
 
+setInterval(function(){
+      $scope.ghost.move($scope.maze, new Dot, new Corridor)}, 500);
+
 $scope.keypress = function(keyEvent) {
       var direction = keyEvent.keyIdentifier
       // console.log(direction)
@@ -26,6 +29,8 @@ function setupGame() {
       var cell = new Cell
       var corridor = new Corridor
       $scope.pacman = new Pacman
+      $scope.ghost = new Ghost
+      $scope.ghost.location = 434
       var wall = new Wall
       var dot = new Dot
       var ghost = new Ghost
@@ -33,6 +38,7 @@ function setupGame() {
       maze.generate(new Cell)
       populateMaze(maze)
       $scope.maze = maze
+      $scope.maze.place($scope.ghost, 35)
 }
 
 function populateMaze(maze) {
@@ -267,7 +273,7 @@ maze.cells[455] = new Wall
 maze.cells[456] = new Wall
 maze.cells[458] = new Wall
 maze.cells[460] = new Wall
-maze.cells[462] = new Wall
+maze.cells[462] = new Corridor
 maze.cells[469] = new Wall
 maze.cells[470] = new Wall
 maze.cells[471] = new Wall
