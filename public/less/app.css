@@ -84,21 +84,19 @@ body {
   height: 30px;
 }
 
-
 .dot {
   background: url('/images/dot.png') no-repeat center center;
   background-size: 40% 40%;
   z-index: 3000;
 }
 
-
 .wall {
   background-color: blue;
 
 }
 
-.pacman{
-  background: url('/images/pacman_up.gif') no-repeat center center;
+.pacman {
+  background: url('/images/pacman_right.gif') no-repeat center center;
   background-size: 80% 80%;
   z-index: 3000;
 }

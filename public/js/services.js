@@ -12,9 +12,7 @@ pacmanServices.factory('Cell', [ function() {
   this.content = content
   this.temporaryContent = null;
   }
-
   return Cell
-
 }])
 
 pacmanServices.factory('Corridor', [ function() {
@@ -23,7 +21,6 @@ pacmanServices.factory('Corridor', [ function() {
   this.name = 'available'
   }
   return Corridor
-
 }])
 
 
@@ -54,96 +51,31 @@ pacmanServices.factory('Pacman', [ function() {
   Pacman.prototype.move = function(direction,maze,corridor) {
     var self = this
     var newLocation = self.location
-    console.log('the curent location is', self.location)
-    // console.log('The current location of the pacman is', self.location)
-    // console.log('The cell 0 maze in pacman',self.maze.cells[0])
-    if (direction == 'Up') (newLocation = self.location - 30)
+    if(direction == 'Up') (newLocation = self.location - 30)
     if(direction == 'Down') (newLocation = self.location + 30)
     if(direction == 'Left') (newLocation = self.location - 1)
     if(direction == 'Right') (newLocation = self.location + 1)
-
-      console.log('trying location:',newLocation)
-      console.log('maze.cells[newLocation].name', maze.cells[newLocation].name)
-      console.log((maze.cells[newLocation].name !== 'wall'))
     if (maze.cells[newLocation].name !== 'wall') {
+      if (maze.cells[newLocation].name === 'dot') { self.pointCount += 1; }
+        console.log(self.pointCount);
         maze.place(corridor, self.location)
         maze.place(self, newLocation)
+        self.eatDot(maze, newLocation, corridor)
       }
+  }
 
-      console.log('test final is',self.location)
+  Pacman.prototype.eatDot = function(maze, newLocation, corridor) {
+    var self = this
+    if(maze.cells[newLocation].name === 'available') {
+    };
+    if(maze.cells[newLocation].name === 'dot') {
+    }  
+  };
 
-
-
+  Pacman.prototype.changeDirection = function(direction, maze, corridor) {
 
 
   }
-
-
-
-
-  Pacman.prototype.moveRight = function() {
-    var self = this
-    self._leaveCell(self.location);
-    if (self.maze.cells[self.location + 1].name = 'Wall'){
-      return self.location}
-    else{
-      self.location +=1;
-      self._enterCell(self.location)
-    }
-  };
-
-  Pacman.prototype.moveLeft = function() {
-    var self = this
-
-    self._leaveCell(self.location);
-     if (self.maze.cells[self.location - 1].name = 'Wall'){
-      return self.location}
-    else{
-      self.location -=1;
-      self._enterCell(self.location)
-    }
-  };
-
-  Pacman.prototype.moveUp = function() {
-    var self = this
-    self._leaveCell(self.location);
-     if (self.maze.cells[self.location - self.maze.width].name = 'Wall'){
-      return self.location}
-    else{
-      self.location -=self.maze.width;
-      self._enterCell(self.location)
-    }
-  };
-
-  Pacman.prototype.moveDown = function() {
-    var self = this
-    self._leaveCell(self.location);
-    if (self.maze.cells[self.location + self.maze.width].name = 'Wall'){
-      return self.location}
-    else{
-      self.location += self.maze.width;
-      self._enterCell(self.location)
-    }
-  };
-
-  Pacman.prototype._leaveCell = function(location) {
-    var self = this
-    console.log("_leaveCell method", self.maze.cells[location].name == 'dot')
-    self.maze.cells[location].name =  "dot";
-  };
-
-  Pacman.prototype._enterCell = function(location) {
-    var self = this
-    self._checkGhost(location);
-    self._eatDot(location);
-    self.maze.cells[location].content = self
-  };
-
-  Pacman.prototype._eatDot = function(location) {
-    var self = this
-    if(self.maze.cells[location].content instanceof Dot)
-      self.pointCount +=1;
-  };
 
   Pacman.prototype._checkGhost = function(location) {
     var self = this
@@ -181,50 +113,6 @@ pacmanServices.factory('Ghost', [ function() {
   var Ghost = function() {
     this.name = 'ghost'
     this.location = 253;
-  };
-
-  Ghost.prototype.moveRight = function() {
-    var self = this
-    self._leaveCell(self.location);
-    if (self.maze.cells[self.location + 1].content instanceof Wall){
-      return self.location}
-    else{
-      self.location +=1;
-      self._enterCell(self.location)
-    }
-  };
-
-  Ghost.prototype.moveLeft = function() {
-    var self = this
-    self._leaveCell(self.location);
-     if (self.maze.cells[self.location - 1].content instanceof Wall){
-      return self.location}
-    else{
-      self.location -=1;
-      self._enterCell(self.location)
-    }
-  };
-
-  Ghost.prototype.moveUp = function() {
-    var self = this
-    self._leaveCell(self.location);
-     if (self.maze.cells[self.location - self.maze.width].content instanceof Wall){
-      return self.location}
-    else{
-      self.location -= self.maze.width;
-      self._enterCell(self.location)
-    }
-  };
-
-  Ghost.prototype.moveDown = function() {
-    var self = this
-    self._leaveCell(self.location);
-    if (self.maze.cells[self.location + self.maze.width].content instanceof Wall){
-      return self.location}
-    else{
-      self.location += self.maze.width;
-      self._enterCell(self.location)
-    }
   };
 
   Ghost.prototype._leaveCell = function(location) {
@@ -286,7 +174,6 @@ pacmanServices.factory('Maze', [ function() {
   Maze.prototype.place = function(object, index) {
     var self = this
     self.cells[index]= object;
-    console.log
     if (typeof object !== 'string') object.location = index
   };
 
@@ -299,51 +186,3 @@ pacmanServices.factory('Maze', [ function() {
   return Maze
 
 }])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
