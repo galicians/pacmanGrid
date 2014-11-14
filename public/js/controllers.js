@@ -7,30 +7,41 @@ var pacmanControllers = angular.module('pacmanControllers', []);
 pacmanControllers.controller('gameController', ['$scope','Cell' ,'Corridor','Pacman', 'Wall', 'Dot', 'Ghost', 'Maze', 'Layout', function($scope, Cell, Corridor, Pacman, Wall, Dot, Ghost, Maze, Layout) {
 
 
+
+setupGame()
+
+
+$scope.maze.addPacman($scope.pacman)
+$scope.pacman.location = 32
+$scope.maze.place($scope.pacman, 32)
+$scope.pacman.pointCount
+
+setInterval(function(){
+      $scope.ghost.move($scope.maze, new Dot, new Corridor)}, 500);
+
+$scope.keypress = function(keyEvent) {
+      var direction = keyEvent.keyIdentifier
+      // console.log(direction)
+      $scope.pacman.move(direction,$scope.maze,new Corridor)
+}
+
+function setupGame() {
       var cell = new Cell
       var corridor = new Corridor
-      var pacman = new Pacman
+      $scope.pacman = new Pacman
+      $scope.ghost = new Ghost
+      $scope.ghost.location = 434
       var wall = new Wall
       var dot = new Dot
       var ghost = new Ghost
       var maze = new Maze(30, 30)
-      var layout = Layout
       maze.generate(new Cell)
-      // maze.cells[0].content = 'hello'
-      // console.log(maze.cells[0].content)
-      // maze.populate(new Dot,new Wall)
-populateMaze()
-$scope.maze = maze
-      $scope.maze.addPacman(pacman)
-      maze.cells[461] = pacman
-      $scope.maze.addGhost(ghost)
-      maze.cells[435] = ghost
+      populateMaze(maze)
+      $scope.maze = maze
+      $scope.maze.place($scope.ghost, 35)
+}
 
-
-      // layout.forEach(function(position) { console.log(maze.cells[position].content) } )
-
-function populateMaze() {
-// maze.cells[0] = new Wall
+function populateMaze(maze) {
 maze.cells[0] = new Wall
 maze.cells[1] = new Wall
 maze.cells[2] = new Wall
@@ -262,7 +273,7 @@ maze.cells[455] = new Wall
 maze.cells[456] = new Wall
 maze.cells[458] = new Wall
 maze.cells[460] = new Wall
-maze.cells[462] = new Wall
+maze.cells[462] = new Corridor
 maze.cells[469] = new Wall
 maze.cells[470] = new Wall
 maze.cells[471] = new Wall
@@ -677,10 +688,10 @@ maze.cells[395] = new Dot
 maze.cells[397] = new Dot
 maze.cells[399] = new Dot
 maze.cells[401] = new Dot
-maze.cells[403] = new Dot
-maze.cells[404] = new Dot
-maze.cells[405] = new Dot
-maze.cells[406] = new Dot
+maze.cells[403] = new Corridor
+maze.cells[404] = new Corridor
+maze.cells[405] = new Corridor
+maze.cells[406] = new Corridor
 maze.cells[408] = new Dot
 maze.cells[410] = new Dot
 maze.cells[412] = new Dot
@@ -695,10 +706,10 @@ maze.cells[426] = new Dot
 maze.cells[427] = new Dot
 maze.cells[429] = new Dot
 maze.cells[431] = new Dot
-maze.cells[433] = new Dot
-maze.cells[434] = new Dot
-maze.cells[435] = new Dot
-maze.cells[436] = new Dot
+maze.cells[433] = new Corridor
+maze.cells[434] = new Corridor
+maze.cells[435] = new Corridor
+maze.cells[436] = new Corridor
 maze.cells[438] = new Dot
 maze.cells[439] = new Dot
 maze.cells[440] = new Dot
@@ -711,11 +722,11 @@ maze.cells[451] = new Dot
 maze.cells[457] = new Dot
 maze.cells[459] = new Dot
 maze.cells[461] = new Dot
-maze.cells[463] = new Dot
-maze.cells[464] = new Dot
-maze.cells[465] = new Dot
-maze.cells[466] = new Dot
-maze.cells[467] = new Dot
+maze.cells[463] = new Corridor
+maze.cells[464] = new Corridor
+maze.cells[465] = new Corridor
+maze.cells[466] = new Corridor
+maze.cells[467] = new Corridor
 maze.cells[468] = new Dot
 maze.cells[472] = new Dot
 maze.cells[478] = new Dot
@@ -727,10 +738,10 @@ maze.cells[486] = new Dot
 maze.cells[487] = new Dot
 maze.cells[489] = new Dot
 maze.cells[491] = new Dot
-maze.cells[493] = new Dot
-maze.cells[494] = new Dot
-maze.cells[495] = new Dot
-maze.cells[496] = new Dot
+maze.cells[493] = new Corridor
+maze.cells[494] = new Corridor
+maze.cells[495] = new Corridor
+maze.cells[496] = new Corridor
 maze.cells[498] = new Dot
 maze.cells[499] = new Dot
 maze.cells[500] = new Dot
@@ -744,10 +755,10 @@ maze.cells[511] = new Dot
 maze.cells[513] = new Dot
 maze.cells[519] = new Dot
 maze.cells[521] = new Dot
-maze.cells[523] = new Dot
-maze.cells[524] = new Dot
-maze.cells[525] = new Dot
-maze.cells[526] = new Dot
+maze.cells[523] = new Corridor
+maze.cells[524] = new Corridor
+maze.cells[525] = new Corridor
+maze.cells[526] = new Corridor
 maze.cells[528] = new Dot
 maze.cells[530] = new Dot
 maze.cells[536] = new Dot
@@ -937,7 +948,7 @@ maze.cells[868] = new Dot
 
 
 
-// console.log('hiiiiii')
+
 
 
 
@@ -945,37 +956,10 @@ maze.cells[868] = new Dot
  }]);
 
 
-  // function setupGame() {
-  //   var cell = new Cell
-  //   var board = new Grid
-  //   board.factory(Cell)
-  //   var pacman = new Pacman
-  //   board.placing(pacman, '1:1')
-  //   $scope.cell = cell
-  //   $scope.pacman = pacman
-  //   $scope.cellName = cell.name
-  //   $scope.boardSize = board.size
-  //   $scope.board = board
-  //   $scope.isResponded = false
-  // }
 
 
-  //    $scope.keypress = function(keyEvent) {
-  //      ($scope.isResponded == true) ? $scope.isResponded = false : $scope.isResponded = true
-  //       console.log('pacman initial pos',  $scope.pacman.currentCell)
-  //       $scope.board.removeContent(Cell,  $scope.pacman.currentCell)
-  //       $scope.pacman.move(keyEvent.keyIdentifier)
-  //       $scope.board.placing( $scope.pacman,  $scope.pacman.currentCell)
-  //       console.log('pacman final pos',  $scope.pacman.currentCell)
-  //   };
 
-      // $scope.board.$watch()
-      // function()
-      // // angular.copy( $scope.pacman.board )
-      // return
 
-//watch on table to update content
-//imgsrc to render the pacman in the the grid
 
 
 

@@ -11,33 +11,7 @@
 
 </head>
 
-<body >
-<!--   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-  <div>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Pacman game</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a>
-            </li>
-            <li><a href="#game">Game</a>
-            </li>
-            <li><a href="#highscore">High score</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
-
+<body>
     <header>
       <article id="header-container">
         <div id="logo-container">
@@ -62,12 +36,14 @@
     <section id="board-section">
       <section id="player-score-container">
         <article id="player-score">
-          <h1 id="player-name">ENTER YOUR NAME</h1>
-          <input type="text" name="player-name" id="player-name-form">
-          <input type="submit" value="ok man" id="player-name-button">
+          <section id="player-name-input">
+            <input type="text" name="player-name" id="player-name-form" placeholder="ENTER YOUR NAME">
+            <input type="submit" value="ok man" id="player-name-button">
+          </section>
+          <h1 id="pacman-living">{{pacman.living}}</h1>
           <article id="current-score">
-            <p><span id="life-count">3</span> LIVES</p>
-            <p><span id="point-count">0</span> POINTS</p>
+            <p id="life-line"><span id="life-count">{{pacman.lifeCount}}</span> LIVES</p>
+            <p id="point-line"><span id="point-count">{{pacman.pointCount}}</span> POINTS</p>
             </article>
           </article>
         </article>
@@ -87,17 +63,16 @@
             <article class="score-board-list" id="stars">
               <ul>
                 <li> <h2>Score</h2></li>
-                <li>★★★★★</li>
-                <li>★★★★★</li>
-                <li>★★★★★</li>
-                <li>★★★★★</li>
+                <li>9000</li>
+                <li>7500</li>
+                <li>5500</li>
+                <li>1300</li>
               </ul>
             </article>
         </article>
       </section>
     </section>
     </main>
-
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
   <script src="/bower_components/less/dist/less-1.6.1.js"></script>
@@ -108,6 +83,7 @@
   <script src="/js/directives.js"></script>
   <script src="/js/jquery-2.1.1.min.js"></script>
   <script src="/js/interface.js"></script>
+
 </body>
 
 </html>
